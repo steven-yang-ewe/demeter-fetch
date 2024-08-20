@@ -1,0 +1,18 @@
+[from]
+chain = "ethereum"
+datasource = "big_query"
+dapp_type = "uniswap"
+http_proxy = "" # set proxy if cannot connect google service
+start = "2022-01-25"
+end = "2022-01-25"
+
+[from.uniswap]
+pool_address = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
+
+[from.big_query]
+auth_file = "/Users/lunaspeed/Documents/ewe/gcp-key/demeter-test-southern-bonsai-431703-d4-87c53108c351.json" # google bigquery auth file
+
+[to]
+type = "minute"
+save_path = "./sample" # save data to this folder
+

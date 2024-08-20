@@ -10,3 +10,6 @@ sample-data
 /.vscode
 /config.uni.toml
 venv
+
+/sample
+*startdate

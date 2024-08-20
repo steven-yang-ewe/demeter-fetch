@@ -38,11 +38,11 @@ def _update_df(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def query_tx_logs(
-    chain: ChainType,
-    end_point: str,
-    save_path: str,
-    auth_string: str | None = None,
-    http_proxy: str | None = None,
+        chain: ChainType,
+        end_point: str,
+        save_path: str,
+        auth_string: str | None = None,
+        http_proxy: str | None = None,
 ) -> pd.DataFrame:
     client = rpc_utils.EthRpcClient(end_point, http_proxy, auth_string)
     utils.print_log(f"Will download transaction logs of uniswap")
@@ -51,18 +51,18 @@ def query_tx_logs(
 
 
 def query_logs(
-    chain: ChainType,
-    end_point: str,
-    save_path: str,
-    start_height: int,
-    end_height: int,
-    contract: ContractConfig,
-    batch_size: int = 500,
-    auth_string: str | None = None,
-    http_proxy: str | None = None,
-    keep_tmp_files: bool = False,
-    one_by_one: bool = False,
-    skip_timestamp: bool = False,
+        chain: ChainType,
+        end_point: str,
+        save_path: str,
+        start_height: int,
+        end_height: int,
+        contract: ContractConfig,
+        batch_size: int = 500,
+        auth_string: str | None = None,
+        http_proxy: str | None = None,
+        keep_tmp_files: bool = False,
+        one_by_one: bool = False,
+        skip_timestamp: bool = False,
 ) -> pd.DataFrame:
     client = rpc_utils.EthRpcClient(end_point, http_proxy, auth_string)
     utils.print_log(f"Will download from height {start_height} to {end_height}")
@@ -83,7 +83,8 @@ def query_logs(
         import traceback
 
         print(traceback.format_exc())
-        exit(1)
+        #exit(1)
+        raise RuntimeError("Failed to query logs")
 
     current_day_logs = []
     # Load temporary files based on height, then reorganize into raw files by day
@@ -254,7 +255,7 @@ def rpc_squeeth(config: FromConfig, save_path: str, day: date) -> pd.DataFrame:
     )
     daily_df = _update_df(daily_df)
     daily_df["block_timestamp"] = daily_df["data"].apply(
-        lambda x: datetime.fromtimestamp(int(x[64 * 3 + 2 :], 16), tz=timezone.utc)
+        lambda x: datetime.fromtimestamp(int(x[64 * 3 + 2:], 16), tz=timezone.utc)
     )
 
     return daily_df

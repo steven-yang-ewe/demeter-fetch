@@ -1,0 +1,20 @@
+[from]
+chain = "ethereum"
+datasource = "rpc" # change datasource from big_query to rpc
+dapp_type = "uniswap"
+start = "2023-11-25"
+end = "2023-11-25"
+
+[from.uniswap]
+pool_address = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
+
+[from.rpc] # remove from.big_query and set this section
+end_point = "https://go.getblock.io/e507c19016e44868b6c5117a00bd350e"
+ignore_position_id = true
+etherscan_api_key = "HVXV2T3D24MZYV3YMT9TGCZHG86YH1KU25"
+batch_size = 1000
+
+[to]
+type = "minute"
+save_path = "./sample"
+
