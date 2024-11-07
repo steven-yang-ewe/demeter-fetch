@@ -12,10 +12,12 @@ def main():
     # pool_address = "0xc473e2aEE3441BF9240Be85eb122aBB059A3B57c"  # arbitrum weth/usdc 0.3
     # pool_address = "0xC6962004f452bE9203591991D15f6b388e09E8D0"  # arbitrum weth/usdc 0.05 Jun-08-2023 09:28:24 PM +UTC
     # pool_address = "0x2f5e87C9312fa29aed5c179E456625D79015299c" # arbitrum wbtc/weth 0.05
+    # pool_address = "0x5969EFddE3cF5C0D9a88aE51E47d721096A97203" # arbitrum wbtc/usdt 0.05 Sep-15-2021 07:29:08 PM +UTC
 
     # pool_address = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"  # ethereum usdc/weth
     # pool_address = "0xCBCdF9626bC03E24f779434178A73a0B4bad62eD"  # ethereum wbtc/eth 0.3
-    pool_address = "0x4585FE77225b41b697C938B018E2Ac67Ac5a20c0" # ethereum wbtc/weth 0.05 May-05-2021 08:23:50 PM UTC
+    # pool_address = "0x4585FE77225b41b697C938B018E2Ac67Ac5a20c0" # ethereum wbtc/weth 0.05 May-05-2021 08:23:50 PM UTC
+    pool_address = "0x56534741CD8B152df6d48AdF7ac51f75169A83b2" # ethereum wbtc/usdt 0.05 Jun-09-2021 06:21:10 PM UTC
 
     etherscan_keys = {
         ChainType.arbitrum: "3JWJSC8YTAD7AYU276BU44R7QTV16S4UM2",
@@ -40,10 +42,9 @@ def main():
     #          "https://arb-mainnet.g.alchemy.com/v2/KLmJncAMynx8Eh5-vueyu8oEOEw1o60n"]
     # hosts = ["https://eth-mainnet.g.alchemy.com/v2/KLmJncAMynx8Eh5-vueyu8oEOEw1o60n",
     #          "https://eth-mainnet.g.alchemy.com/v2/dlY8gvYM4ZJYvowh-JrCGPDEd5FLgNR4",
-    #          "https://eth-mainnet.g.alchemy.com/v2/PUECRZoAOlLd9RzrTgW32Yv9gmKsIBV6",
     #          "https://eth-mainnet.g.alchemy.com/v2/53Y2hvshgWivNTRugCBELe6WGtY6ySct"
     #          ]
-    #
+    #"https://eth-mainnet.g.alchemy.com/v2/PUECRZoAOlLd9RzrTgW32Yv9gmKsIBV6",
     chain = ChainType.ethereum
     # chain = ChainType.arbitrum
     etherscan_api_key = etherscan_keys[chain]
