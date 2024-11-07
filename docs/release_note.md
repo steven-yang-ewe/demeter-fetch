@@ -1,3 +1,17 @@
+# v1.1.6
+
+* fix setup.py
+
+# v1.1.5
+
+* fix bugs
+* rpc request is concurrent now, so download time will be less.
+
+# v1.1.4
+
+* add file type: parquest
+* [Breaking change]Value of ChainType enum has changed to chain id. 
+
 # v1.1.3
 
 * you can specify location of height cache now.
