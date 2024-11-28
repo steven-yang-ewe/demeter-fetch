@@ -16,8 +16,8 @@ def main():
 
     # pool_address = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"  # ethereum usdc/weth
     # pool_address = "0xCBCdF9626bC03E24f779434178A73a0B4bad62eD"  # ethereum wbtc/eth 0.3
-    # pool_address = "0x4585FE77225b41b697C938B018E2Ac67Ac5a20c0" # ethereum wbtc/weth 0.05 May-05-2021 08:23:50 PM UTC
-    pool_address = "0x56534741CD8B152df6d48AdF7ac51f75169A83b2" # ethereum wbtc/usdt 0.05 Jun-09-2021 06:21:10 PM UTC
+    pool_address = "0x4585FE77225b41b697C938B018E2Ac67Ac5a20c0" # ethereum wbtc/weth 0.05 May-05-2021 08:23:50 PM UTC
+    # pool_address = "0x56534741CD8B152df6d48AdF7ac51f75169A83b2" # ethereum wbtc/usdt 0.05 Jun-09-2021 06:21:10 PM UTC
 
     etherscan_keys = {
         ChainType.arbitrum: "3JWJSC8YTAD7AYU276BU44R7QTV16S4UM2",
@@ -51,7 +51,7 @@ def main():
     batch_size = batch_sizes[chain]
 
     to_type = ToType.minute
-    save_path = "./sample"
+    save_path = f"./sample/{pool_address}"
     multi_process = False
     skip_existed = True
     keep_raw = False
@@ -73,13 +73,13 @@ def main():
 
         today = datetime.now()
         # dateCount = (8 if "alchemy" in host else 3) - 1
-        date_count = 10
+        date_count = 3
 
         begin_date = start
 
         end_date = start + timedelta(days=date_count)
 
-        if begin_date > today:
+        if begin_date >= today:
             print("begin_date (" + begin_date.strftime("%Y-%m-%d") + ") is in the future")
             break
 

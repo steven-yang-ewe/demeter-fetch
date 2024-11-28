@@ -80,21 +80,35 @@ class UniMinute(DailyNode):
         df["tx_type"] = df.apply(lambda x: get_tx_type(x.topics), axis=1)
         df = df[df["tx_type"] == KECCAK.SWAP]
         decoded_df = pd.DataFrame()
-        decoded_df[
-            [
-                "sender",
-                "receipt",
-                "amount0",
-                "amount1",
-                "sqrtPriceX96",
-                "currentLiquidity",
-                "current_tick",
-                "tick_lower",
-                "tick_upper",
-                "liquidity",
-                "delta_liquidity",
-            ]
-        ] = df.apply(lambda r: uniswap_utils.handle_event(r.tx_type, r.topics, r.data), axis=1, result_type="expand")
+        if df.empty:
+            # timestamp, netAmount0, netAmount1, closeTick, openTick, lowestTick, highestTick, inAmount0, inAmount1, currentLiquidity
+            column_names = ['timestamp', 'netAmount0', 'netAmount1', 'closeTick', 'openTick', 'lowestTick', 'highestTick', 'inAmount0', 'inAmount1', 'currentLiquidity']
+            return pd.DataFrame(columns=column_names)
+
+        try:
+            # print("")
+            # print(f"df: {df}")
+            a = df.apply(lambda r: uniswap_utils.handle_event(r.tx_type, r.topics, r.data), axis=1, result_type="expand")
+            # print(f"a: {a}")
+            decoded_df[
+                [
+                    "sender",
+                    "receipt",
+                    "amount0",
+                    "amount1",
+                    "sqrtPriceX96",
+                    "currentLiquidity",
+                    "current_tick",
+                    "tick_lower",
+                    "tick_upper",
+                    "liquidity",
+                    "delta_liquidity",
+                ]
+            ] = a
+        except ValueError as e:
+            print(f"values: {decoded_df.values}, a: {a}, error: {e}")
+            raise e
+
         decoded_df["inAmount0"] = decoded_df["amount0"].apply(lambda x: x if x > 0 else 0)
         decoded_df["inAmount1"] = decoded_df["amount1"].apply(lambda x: x if x > 0 else 0)
         minute_df = decoded_df.resample("1min").agg(

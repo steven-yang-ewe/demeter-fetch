@@ -42,6 +42,7 @@ def x96_sqrt_to_decimal(sqrt_priceX96, decimal0, decimal1, is_0_base):
 
 
 def handle_event(tx_type, topics_str, data_hex):
+    # print(f"tx_type: {tx_type}, topics_str: {topics_str}, data_hex: {data_hex}")
     # proprocess topics string ->topic list
     # topics_str = topics.values[0]
     receipt = current_tick = tick_lower = tick_upper = None
@@ -57,8 +58,11 @@ def handle_event(tx_type, topics_str, data_hex):
     no_0x_data = data_hex[2:]
     chunk_size = 64
     chunks = len(no_0x_data)
+
     match tx_type:
         case _typing.KECCAK.SWAP:
+
+
             sender = hex_to_address(topic_list[1])
             receipt = hex_to_address(topic_list[2])
             split_data = ["0x" + no_0x_data[i : i + chunk_size] for i in range(0, chunks, chunk_size)]
@@ -67,6 +71,8 @@ def handle_event(tx_type, topics_str, data_hex):
             ]
 
         case _typing.KECCAK.BURN:
+
+
             sender = hex_to_address(topic_list[1])
             tick_lower = signed_int(topic_list[2])
             tick_upper = signed_int(topic_list[3])
@@ -74,6 +80,8 @@ def handle_event(tx_type, topics_str, data_hex):
             liquidity, amount0, amount1 = [signed_int(onedata) for onedata in split_data]
             delta_liquidity = -liquidity
         case _typing.KECCAK.MINT:
+
+
             # sender = topic_str_to_address(topic_list[1])
             owner = hex_to_address(topic_list[1])
             tick_lower = signed_int(topic_list[2])
@@ -83,6 +91,7 @@ def handle_event(tx_type, topics_str, data_hex):
             liquidity, amount0, amount1 = [signed_int(onedata) for onedata in split_data[1:]]
             delta_liquidity = liquidity
         case _typing.KECCAK.COLLECT:
+
             tick_lower = signed_int(topic_list[2])
             tick_upper = signed_int(topic_list[3])
             split_data = ["0x" + no_0x_data[i : i + chunk_size] for i in range(0, chunks, chunk_size)]
@@ -91,6 +100,7 @@ def handle_event(tx_type, topics_str, data_hex):
             amount0, amount1 = [signed_int(onedata) for onedata in split_data[1:]]
 
         case _:
+
             raise ValueError("not support tx type")
     return (
         sender,
